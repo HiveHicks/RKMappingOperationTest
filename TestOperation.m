@@ -15,6 +15,9 @@
 #import "NSManagedObjectContext+RKAdditions.h"
 
 
+@interface TestOperation () <RKMappingOperationDelegate>
+@end
+
 @implementation TestOperation {
     NSArray *_objects;
     NSManagedObjectContext *_context;
@@ -40,6 +43,7 @@
 
             [_context performBlockAndWait:^{
                 [self syncObjects:_objects];
+                NSLog(@"Sync finished");
             }];
         }
     }
@@ -67,7 +71,7 @@
 
 - (void)mapObject:(NSDictionary *)object
       withMapping:(RKEntityMapping *)mapping
-            cache:(id <RKManagedObjectCaching>)cache
+            cache:(id<RKManagedObjectCaching>)cache
 {
     RKMappingOperation *mappingOperation =
             [[RKMappingOperation alloc] initWithSourceObject:object destinationObject:nil mapping:mapping];
@@ -75,13 +79,13 @@
     RKManagedObjectMappingOperationDataSource *dataSource =
             [[RKManagedObjectMappingOperationDataSource alloc] initWithManagedObjectContext:_context cache:cache];
     mappingOperation.dataSource = dataSource;
-//    mappingOperation.delegate = self;
+    mappingOperation.delegate = self;
 
     NSError *mappingError;
     if ([mappingOperation performMapping:&mappingError]) {
-        NSLog(@"Mapping succeded!");
+//        NSLog(@"Mapping succeded!");
     } else {
-        NSLog(@"%@", mappingError);
+        NSLog(@"Mapping failed: %@", mappingError);
     }
 }
 
@@ -122,6 +126,23 @@
     }
 
     return nil;
+}
+
+#pragma mark - RKMappingOperationDelegate
+
+- (void)mappingOperation:(RKMappingOperation *)operation
+  didConnectRelationship:(NSRelationshipDescription *)relationship
+                 toValue:(id)value
+         usingConnection:(RKConnectionDescription *)connection
+{
+    NSLog(@"Did connect relationship %@ to %@", relationship.name, value);
+}
+
+- (void)    mappingOperation:(RKMappingOperation *)operation
+didFailToConnectRelationship:(NSRelationshipDescription *)relationship
+             usingConnection:(RKConnectionDescription *)connection
+{
+    NSLog(@"Failed to connect relationship %@", relationship.name);
 }
 
 @end
