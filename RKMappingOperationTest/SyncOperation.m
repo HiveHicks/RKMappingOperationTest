@@ -40,7 +40,8 @@
     {
         @autoreleasepool
         {
-            _context = [APP_DELEGATE syncMOC];
+            _context = [[APP_DELEGATE managedObjectStore] newChildManagedObjectContextWithConcurrencyType:NSPrivateQueueConcurrencyType
+                                                                                            tracksChanges:NO];
 
             [self syncObjects:_objects];
             NSLog(@"Sync finished");

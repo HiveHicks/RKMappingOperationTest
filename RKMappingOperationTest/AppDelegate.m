@@ -15,8 +15,6 @@
 
 @implementation AppDelegate {
     RKManagedObjectStore *_managedObjectStore;
-    NSManagedObjectContext *_syncMOC;
-    NSOperationQueue *_syncQueue;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -48,12 +46,12 @@
             @{@"type":@"Employee",@"guid":@"6",@"name":@"Flex",@"department":@"8"}
     ];
 
-    _syncQueue = [NSOperationQueue new];
-    _syncQueue.name = @"Sync queue";
-    _syncQueue.maxConcurrentOperationCount = 1;
+    NSOperationQueue *operationQueue = [NSOperationQueue new];
+    operationQueue.name = @"Sync queue";
+    operationQueue.maxConcurrentOperationCount = 1;
 
     SyncOperation *operation = [[SyncOperation alloc] initWithObjects:objects];
-    [_syncQueue addOperation:operation];
+    [operationQueue addOperation:operation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -99,18 +97,6 @@
 - (NSManagedObjectContext *)privateMOC
 {
     return self.managedObjectStore.persistentStoreManagedObjectContext;
-}
-
-- (NSManagedObjectContext *)syncMOC
-{
-    if (_syncMOC == nil)
-    {
-        _syncMOC = [self.managedObjectStore newChildManagedObjectContextWithConcurrencyType:NSPrivateQueueConcurrencyType
-                                                                              tracksChanges:NO];
-        _syncMOC.MR_workingName = @"Sync MOC";
-    }
-
-    return _syncMOC;
 }
 
 - (RKManagedObjectStore *)managedObjectStore
