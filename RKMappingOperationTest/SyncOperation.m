@@ -81,25 +81,6 @@
     }];
 }
 
-- (void)mapObject:(NSDictionary *)object withMapping:(RKMapping *)mapping cache:(id<RKManagedObjectCaching>)cache
-{
-    RKManagedObjectMappingOperationDataSource *dataSource =
-            [[RKManagedObjectMappingOperationDataSource alloc] initWithManagedObjectContext:_context cache:cache];
-//    dataSource.parentOperation = self;
-
-    RKMappingOperation *mappingOperation =
-            [[RKMappingOperation alloc] initWithSourceObject:object destinationObject:nil mapping:mapping];
-    mappingOperation.dataSource = dataSource;
-    mappingOperation.delegate = self;
-
-    NSError *mappingError;
-    if ([mappingOperation performMapping:&mappingError]) {
-//        NSLog(@"Mapping succeded!");
-    } else {
-        NSLog(@"Mapping failed: %@", mappingError);
-    }
-}
-
 - (RKMapping *)mapping
 {
     RKDynamicMapping *mapping = [RKDynamicMapping new];
