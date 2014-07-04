@@ -5,7 +5,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface TestOperation : NSOperation
+@interface SyncOperation : NSOperation
 
 - (instancetype)initWithObjects:(NSArray *)objects;
 

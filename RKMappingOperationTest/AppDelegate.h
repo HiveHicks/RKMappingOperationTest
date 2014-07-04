@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (nonatomic, strong, readonly) NSManagedObjectContext *mainMOC;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *syncMOC;
 @property (nonatomic, strong, readonly) RKManagedObjectStore *managedObjectStore;
 
 @end

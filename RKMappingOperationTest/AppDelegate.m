@@ -9,10 +9,14 @@
 #import <RestKit/CoreData/RKManagedObjectStore.h>
 #import "AppDelegate.h"
 #import "RKManagedObjectStore.h"
-#import "TestOperation.h"
+#import "SyncOperation.h"
+#import "RKLog.h"
+#import "NSManagedObjectContext+MagicalRecord.h"
 
 @implementation AppDelegate {
     RKManagedObjectStore *_managedObjectStore;
+    NSManagedObjectContext *_syncMOC;
+    NSOperationQueue *_syncQueue;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -21,6 +25,10 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    RKLogConfigureByName("RestKit", RKLogLevelTrace);
+    RKLogConfigureByName("RestKit/ObjectMapping", RKLogLevelTrace);
+    RKLogConfigureByName("RestKit/Network", RKLogLevelTrace);
 
     [self runTest];
 
@@ -40,10 +48,12 @@
             @{@"type":@"Employee",@"guid":@"6",@"name":@"Flex",@"department":@"8"}
     ];
 
-    NSOperationQueue *operationQueue = [NSOperationQueue new];
+    _syncQueue = [NSOperationQueue new];
+    _syncQueue.name = @"Sync queue";
+    _syncQueue.maxConcurrentOperationCount = 1;
 
-    TestOperation *operation = [[TestOperation alloc] initWithObjects:objects];
-    [operationQueue addOperation:operation];
+    SyncOperation *operation = [[SyncOperation alloc] initWithObjects:objects];
+    [_syncQueue addOperation:operation];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -89,6 +99,18 @@
 - (NSManagedObjectContext *)privateMOC
 {
     return self.managedObjectStore.persistentStoreManagedObjectContext;
+}
+
+- (NSManagedObjectContext *)syncMOC
+{
+    if (_syncMOC == nil)
+    {
+        _syncMOC = [self.managedObjectStore newChildManagedObjectContextWithConcurrencyType:NSPrivateQueueConcurrencyType
+                                                                              tracksChanges:NO];
+        _syncMOC.MR_workingName = @"Sync MOC";
+    }
+
+    return _syncMOC;
 }
 
 - (RKManagedObjectStore *)managedObjectStore

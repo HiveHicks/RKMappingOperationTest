@@ -22,7 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		76CF1AF237354EE0841C8ADC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 775176769EC44F268EFD3A1F /* libPods.a */; };
-		8EF2D65A5E61099562CBB045 /* TestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2DA53A87C4735D7A6E1D3 /* TestOperation.m */; };
+		8EF2D1CC17C9BD3C8A253708 /* SyncOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2D277A84665EB94F0B511 /* SyncOperation.m */; };
 		D8E96AC61965A3C200939778 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E96AC51965A3C200939778 /* Foundation.framework */; };
 		D8E96AC81965A3C200939778 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E96AC71965A3C200939778 /* CoreGraphics.framework */; };
 		D8E96ACA1965A3C200939778 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E96AC91965A3C200939778 /* UIKit.framework */; };
@@ -56,8 +56,8 @@
 /* Begin PBXFileReference section */
 		57155B3C950A4D01B4A8AF3B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		775176769EC44F268EFD3A1F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EF2DA53A87C4735D7A6E1D3 /* TestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestOperation.m; sourceTree = "<group>"; };
-		8EF2DDD5F82166CD0D5D40B5 /* TestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestOperation.h; sourceTree = "<group>"; };
+		8EF2D277A84665EB94F0B511 /* SyncOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SyncOperation.m; sourceTree = "<group>"; };
+		8EF2DA4AD1484834CDA6C326 /* SyncOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyncOperation.h; sourceTree = "<group>"; };
 		D8E96AC21965A3C200939778 /* RKMappingOperationTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKMappingOperationTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E96AC51965A3C200939778 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8E96AC71965A3C200939778 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -123,8 +123,6 @@
 				D8E96AFE1965A64600939778 /* Model.xcdatamodeld */,
 				D8E96B011965A69B00939778 /* Models */,
 				57155B3C950A4D01B4A8AF3B /* Pods.xcconfig */,
-				8EF2DA53A87C4735D7A6E1D3 /* TestOperation.m */,
-				8EF2DDD5F82166CD0D5D40B5 /* TestOperation.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,6 +155,8 @@
 				D8E96AD51965A3C200939778 /* AppDelegate.m */,
 				D8E96AD71965A3C200939778 /* Images.xcassets */,
 				D8E96ACC1965A3C200939778 /* Supporting Files */,
+				8EF2D277A84665EB94F0B511 /* SyncOperation.m */,
+				8EF2DA4AD1484834CDA6C326 /* SyncOperation.h */,
 			);
 			path = RKMappingOperationTest;
 			sourceTree = "<group>";
@@ -373,7 +373,7 @@
 				D8E96B101965A69B00939778 /* _Employee.m in Sources */,
 				D8E96B0D1965A69B00939778 /* Department.m in Sources */,
 				D8E96B0F1965A69B00939778 /* _Department.m in Sources */,
-				8EF2D65A5E61099562CBB045 /* TestOperation.m in Sources */,
+				8EF2D1CC17C9BD3C8A253708 /* SyncOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
