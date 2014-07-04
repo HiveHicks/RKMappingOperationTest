@@ -67,10 +67,11 @@
     mapperOperation.mappingOperationDataSource = dataSource;
     mapperOperation.delegate = self;
 
-    NSError *error;
-    if (![mapperOperation execute:&error]) {
-        NSLog(@"Error executing mapper operation: %@", error);
-    }
+    NSOperationQueue *operationQueue = [NSOperationQueue new];
+    operationQueue.name = @"Internal SyncOperation queue";
+
+    [operationQueue addOperation:mapperOperation];
+    [operationQueue waitUntilAllOperationsAreFinished];
 
     [_context performBlockAndWait:^{
         NSError *saveError = nil;
