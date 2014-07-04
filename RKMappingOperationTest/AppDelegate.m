@@ -30,14 +30,14 @@
 - (void)runTest
 {
     NSArray *objects = @[
+            @{@"type":@"Department",@"guid":@"7",@"name":@"DepA"},
+            @{@"type":@"Department",@"guid":@"8",@"name":@"DepB"},
             @{@"type":@"Employee",@"guid":@"1",@"name":@"Alex",@"department":@"7"},
             @{@"type":@"Employee",@"guid":@"2",@"name":@"Blex",@"department":@"8"},
             @{@"type":@"Employee",@"guid":@"3",@"name":@"Clex",@"department":@"7"},
             @{@"type":@"Employee",@"guid":@"4",@"name":@"Dlex",@"department":@"8"},
             @{@"type":@"Employee",@"guid":@"5",@"name":@"Elex",@"department":@"7"},
-            @{@"type":@"Employee",@"guid":@"6",@"name":@"Flex",@"department":@"8"},
-            @{@"type":@"Department",@"guid":@"7",@"name":@"DepA"},
-            @{@"type":@"Department",@"guid":@"8",@"name":@"DepB"}
+            @{@"type":@"Employee",@"guid":@"6",@"name":@"Flex",@"department":@"8"}
     ];
 
     NSOperationQueue *operationQueue = [NSOperationQueue new];
